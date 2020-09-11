@@ -1,6 +1,4 @@
-a = input().split(' ');
-x = int(a[0]);
-y = int(a[1]);
+x,y = map(int,input().split('');
 if(x==0 and y<45):
     print(f"23 {y+15}");
 else:
