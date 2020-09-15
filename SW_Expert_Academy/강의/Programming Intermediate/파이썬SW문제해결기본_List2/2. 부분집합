@@ -37,7 +37,7 @@
     n = len(arr)  # n:원소의 개수
 
     for i in range(1<<n): #1<<n는 2의 n제곱으로 부분집합의 개수를 의미한다.
-        for j inrnage(n): #원소의 수만큼 비트를 비교함
+        for j in range(n): #원소의 수만큼 비트를 비교함
             if i&(1<<j): i번째 부분집합의 j번째 원소의 포함 여부를 판단
-                print(arr[j], ene=',')
+                print(arr[j], end=',')
         print() #부분집합별로 서로 다른 줄로 나누기
