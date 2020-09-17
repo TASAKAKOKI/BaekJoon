@@ -1,7 +1,6 @@
 # 0
-'''
 import sys
-sys.stdin = open("./SW_Expert_Academy/py-2/input_4831.txt", "r")
+sys.stdin = open("./SW_Expert_Academy/강의/Programming Intermediate/파이썬SW문제해결기본_List1/input_4831.txt", "r")
 T = sys.stdin.readlines()
 for i in range(1,len(T),2):
     K,N,M = map(int,T[i].strip().split())
@@ -17,7 +16,6 @@ for i in range(1,len(T),2):
             result = 1
             break;
     print(f'#{int((i+1)/2)} {result-1}')
-'''
 
 # 1
 T = int(input())

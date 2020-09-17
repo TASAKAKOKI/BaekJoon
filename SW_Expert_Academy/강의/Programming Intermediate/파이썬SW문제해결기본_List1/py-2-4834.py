@@ -58,9 +58,8 @@ v 1 2 3 4 5
 '''
 
 # 0
-'''
 import sys
-sys.stdin = open("./SW_Expert_Academy/py-2/input_4834.txt", "r")
+sys.stdin = open("./SW_Expert_Academy/강의/Programming Intermediate/파이썬SW문제해결기본_List1/input_4834.txt", "r")
 T = sys.stdin.readlines()
 print(T)
 for i in range(2,len(T),2):
@@ -73,8 +72,6 @@ for i in range(2,len(T),2):
     print(array)
     print(max(array))
     print(10-int(list(reversed(array)).index(max(array))))
-'''
-
 
 # 1
 T = int(input())

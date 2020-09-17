@@ -32,7 +32,7 @@ v 1 2 3 4 5
 
 # 0
 import sys
-sys.stdin = open("./SW_Expert_Academy/py-2/input_4835.txt", "r")
+sys.stdin = open("./SW_Expert_Academy/강의/Programming Intermediate/파이썬SW문제해결기본_List1/input_4835.txt", "r")
 T = sys.stdin.readlines()
 for i in range(2,len(T),2):
     N,M = map(int,T[i-1].strip().split())
