@@ -46,60 +46,81 @@ E개의 줄 이후에는 경로의 존재를 확인할 출발 노드 S와 도착
 #3 1
 '''
 
+'''
 # 0 using sys.stdin
 import sys
+def checkLine(s,g,Node):
+    stack = []
+    stack.append(s)
+    print('initial stack is:',stack)
+    connected = False
+    while len(stack) != 0:
+        v = stack[-1]
+        print('current v is:',v)
+        if len(Node[v]) != 0:
+            if g in Node[v]:
+                print(' lucky! found the connected line!')
+                connected = True
+                break                
+            print(' v has some linked nodes:',Node[v])
+            w = Node[v].pop()
+            print(' v and changed Nove[v] and new w is:', v, Node[v], w)
+            stack.append(w)
+            print(' current stack is:',stack)
+        else: 
+            print(' but... does not have any linked nodes:',Node[v])
+            stack.pop()
+            print(' current stack is:',stack)
+    return 1 if connected == True else 0
+    
 sys.stdin = open("./SW_Expert_Academy/강의/Programming Intermediate/파이썬SW문제해결기본_Stack/input_4871.txt", "r")
 T = sys.stdin.readline()
 # print(type(T.strip()))
 for tc in range(1, int(T)+1):
     V,E = map(int,sys.stdin.readline().strip().split())
     print('V is:',V,'and E is:',E)
-    NodesLinking = {'{}'.format(i) : 'none' for i in range(1,V+1)}
+    Nodes = {'{}'.format(i) : [] for i in range(1,V+1)}
+    # print(Nodes)
     for j in range(E):
         start,end = map(str,sys.stdin.readline().strip().split())
-        print(start,end)
-        if NodesLinking[start] == 'none':
-            NodesLinking[start] = end
-        else:
-            NodesLinking[start].append(end)
-    # print(NodesLinking[1])
-    print(NodesLinking)
-
-    # print(f'#{tc} {result}')
-'''
-# 1 using input()
-T = int(input())
-for tc in range(1, T+1):
-    N = list(input())
-    stack = []
-    result = 1
-    for i in range(len(N)):
-        ele = N[i]
-        if ele == '(' or ele == '{':
-            print(f'{i}th ele is {ele} and will be added to stack')
-            stack.append(ele)
-        elif ele == ')' or ele == '}':
-            if len(stack) == 0:
-                result = 0
-                break
-            else:
-                print(f'{i}th ele is {ele} and we will check if added to stack')
-                last = stack[-1]
-                if last == '(' and ele == ')':
-                    print(f'    last element is matched!: {last}')
-                    stack.pop()
-                elif last == '{' and ele == '}':
-                    print(f'    last element is matched!: {last}')
-                    stack.pop()
-                else:
-                    print(f'    last element not matched!: {last}')
-                    result = 0
-                    break
-        else:
-            print(f'{i}th ele is {ele}.. uhm... let\'s skip this')
-            continue
-    print(f'length of stack : {len(stack)}, and result is {result}')
-    if len(stack) != 0:
-        result = 0
+        # print(start,end)
+        Nodes[start].append(end)
+    # print(Nodes[1])
+    print(Nodes)
+    S, G = map(str,sys.stdin.readline().split())
+    print('S is :',S,'and G is: ',G)
+    result = 0
+    if int(S) in range(1,V+1) and int(G) in range(1,V+1):
+        print('correct way')
+        result = checkLine(S,G,Nodes)
     print(f'#{tc} {result}')
 '''
+
+# 1 using input()
+def checkLine(s,g,Node):
+    stack = []
+    stack.append(s)
+    connected = 0
+    while len(stack) != 0:
+        v = stack[-1]
+        if len(Node[v]) != 0:
+            if g in Node[v]:
+                connected = 1
+                break                
+            w = Node[v].pop()
+            stack.append(w)
+        else: 
+            stack.pop()
+    return connected
+T = int(input())
+for tc in range(1, T+1):
+    V,E = map(int,input().split())
+    Nodes = {'{}'.format(i) : [] for i in range(1,V+1)}
+    for j in range(E):
+        start,end = map(str,input().split())
+        Nodes[start].append(end)
+    S, G = map(str,input().split())
+    result = 0
+    if int(S) in range(1,V+1) and int(G) in range(1,V+1):
+        result = checkLine(S,G,Nodes)
+    print(f'#{tc} {result}')
