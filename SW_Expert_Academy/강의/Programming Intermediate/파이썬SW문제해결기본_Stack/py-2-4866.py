@@ -60,7 +60,6 @@ for tc in range(1, int(T)+1):
 T = int(input())
 for tc in range(1, T+1):
     N = list(input())
-    print(N)
     stack = []
     result = 1
     for i in range(len(N)):
@@ -68,34 +67,27 @@ for tc in range(1, T+1):
         if ele == '(' or ele == '{':
             print(f'{i}th ele is {ele} and will be added to stack')
             stack.append(ele)
-        elif ele == ')':
-            print(f'{i}th ele is {ele} and we will check if added to stack')
-            try:
-                last = stack[-1]
-                print(f'last element found :{last} ')
-                if last == '(':
-                    stack.pop()
-                else:
-                    result = 0
-                    break
-            except(e):
-                print(f'something happened on {i}th ele: {ele}')
+        elif ele == ')' or ele == '}':
+            if len(stack) == 0:
                 result = 0
                 break
-        elif ele == '}':
-            try:
+            else:
+                print(f'{i}th ele is {ele} and we will check if added to stack')
                 last = stack[-1]
-                if last == '{':
+                if last == '(' and ele == ')':
+                    print(f'    last element is matched!: {last}')
+                    stack.pop()
+                elif last == '{' and ele == '}':
+                    print(f'    last element is matched!: {last}')
                     stack.pop()
                 else:
+                    print(f'    last element not matched!: {last}')
                     result = 0
                     break
-            except(e):
-                print(f'something happened on {i}th ele: {ele}')
-                result = 0
-                break
         else:
+            print(f'{i}th ele is {ele}.. uhm... let\'s skip this')
             continue
+    print(f'length of stack : {len(stack)}, and result is {result}')
     if len(stack) != 0:
         result = 0
     print(f'#{tc} {result}')
