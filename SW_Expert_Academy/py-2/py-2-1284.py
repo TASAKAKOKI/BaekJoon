@@ -1,7 +1,8 @@
 # 0
 '''
 import sys
-sys.stdin = open("./SW_Expert_Academy/py-2/input.txt", "r")
+sys.stdin = open("./SW_Expert_Academy/py-2/1284
+.txt", "r")
 T = sys.stdin.readlines()
 for i in range(1,len(T)):
     T[i] = list(map(int,T[i].strip().split()))
