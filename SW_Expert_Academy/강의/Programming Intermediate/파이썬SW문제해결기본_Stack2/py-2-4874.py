@@ -32,19 +32,88 @@ Forth 코드의 연산 결과를 출력하는 프로그램을 만드시오. 만�
 #3 168
 '''
 
-# 0 using sys.stdin
+'''
+def calculate(a,b,cal):
+  return {'+':a+b, '-':a-b, '*':a*b, '/':a//b}[cal]
+
+# 0 using sys.stdin  swexpertacademy에서는 eval함수 라이브러리를 허용하지 않음
 import sys
 sys.stdin = open("./SW_Expert_Academy/강의/Programming Intermediate/파이썬SW문제해결기본_Stack2/input_4874.txt", "r")
-T = sys.stdin.readline()
-# print(type(T.strip()))
-for tc in range(1, int(T)+1):
-    N = list(sys.stdin.readline().strip())
-    print(f'#{tc} {result}')
+T = int(sys.stdin.readline())
+for tc in range(1, T+1):
+  stack = []
+  N = sys.stdin.readline().split(" ")
+  result = 0
+  for i in range(len(N)):
+    try:
+      j = int(N[i])
+      stack.append(j)
+    except:
+      if N[i] == '+' or N[i] == '-' or N[i] == '*' or N[i] == '/':
+        try:
+          b = stack.pop()
+          a = stack.pop()
+          stack.append(eval(f'{a}{N[i]}{b}'))
+        except:
+          result = 'error'
+      else:
+        break
+  if result != 'error':
+    result = stack.pop()
+  print(f'#{tc} {result}')
 
-'''
-# 1 using input()
+# 1 using input()  swexpertacademy에서는 eval함수 라이브러리를 허용하지 않음
 T = int(input())
 for tc in range(1, T+1):
-    N = list(input())
-    print(f'#{tc} {result}')
-    '''
+  stack = []
+  N = input().split(" ")
+  result = 0
+  for i in range(len(N)):
+    try:
+      j = int(N[i])
+      stack.append(j)
+    except:
+      if N[i] == '+' or N[i] == '-' or N[i] == '*' or N[i] == '/':
+        try:
+          b = stack.pop()
+          a = stack.pop()
+          stack.append(eval(f'{a}{N[i]}{b}'))
+        except:
+          result = 'error'
+      else:
+        break
+  if result != 'error':
+    result = stack.pop()
+  print(f'#{tc} {result}')
+'''
+
+# 2 using input() eval외의 방법 사용
+def calculate(a,b,cal):
+  return {'+':a+b, '-':a-b, '*':a*b, '/':a//b}[cal]
+
+# import sys
+# sys.stdin = open("./SW_Expert_Academy/강의/Programming Intermediate/파이썬SW문제해결기본_Stack2/input_4874.txt", "r")
+# T = int(sys.stdin.readline())
+T = int(input())
+for tc in range(1, T+1):
+  stack = []
+  # N = sys.stdin.readline().strip().split(" ")
+  N = input().split(' ')
+  result = 'error'
+  for i in range(len(N)):
+    try:
+      stack.append(int(N[i]))
+    except:
+      if N[i] == '+' or N[i] == '-' or N[i] == '*' or N[i] == '/':
+        try:
+          b = int(stack.pop())
+          a = int(stack.pop())
+          stack.append(calculate(a,b,N[i]))
+        except:
+          break
+      else:
+        if len(stack) == 1:
+          result = stack.pop()
+        else:
+          break
+  print("#%d %s"%(tc,result))
