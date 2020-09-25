@@ -115,6 +115,7 @@ for tc in range(1, T+1):
     # print(f'#{tc} {result}')
 '''
 
+'''
 # 0-1 import sys 이용
 import sys
 sys.stdin = open("./SW_Expert_Academy/강의/Programming Intermediate/파이썬SW문제해결기본_Stack2/input_4875.txt", "r")
@@ -178,9 +179,80 @@ for tc in range(1, T+1):
     backtrack(Y,X)
     print('#%d %s'%(tc,result))
 '''
-# 1 using input()
+
+#0 (성공)
+import sys
+sys.stdin = open("./SW_Expert_Academy/강의/Programming Intermediate/파이썬SW문제해결기본_Stack2/input_4875.txt", "r")
+dy = [-1,1,0,0]
+dx = [0,0,-1,1]
+def canGo(Y,X):
+    return 1 if Y in range(N) and X in range(N) and Maze[Y][X] != 1 else 0
+def findWay(Y,X):
+    global result
+    if result == 1:
+        return 1
+    if Maze[Y][X] == 3:
+        result = 1
+        return 1
+    for idx in range(4):
+        if result == 1:
+            break
+        if canGo(Y+dy[idx],X+dx[idx]):
+            Maze[Y][X] = 1
+            findWay(Y+dy[idx],X+dx[idx])
+            Maze[Y][X] = 0
+        else:
+            continue
+    return result
+
+T = int(sys.stdin.readline())
+for tc in range(1, T+1):
+    N = int(sys.stdin.readline())
+    Maze = [sys.stdin.readline().strip() for i in range(N)]
+    Y,X = 0,0
+    for i in range(N):
+        if '2' in Maze[i]:
+            Y,X = i, Maze[i].index('2')
+        Maze[i] = list(map(int,Maze[i]))
+    print('initial Y, X is:',Y,X)
+    Maze[Y][X] = 1
+    result = 0
+    findWay(Y,X)
+    print('#%d %s'%(tc,result))
+
+# 1 성공 using input()
+dy = [-1,1,0,0]
+dx = [0,0,-1,1]
+def canGo(Y,X):
+    return 1 if Y in range(N) and X in range(N) and Maze[Y][X] != 1 else 0
+def findWay(Y,X):
+    global result
+    if result == 1:
+        return 1
+    if Maze[Y][X] == 3:
+        result = 1
+        return 1
+    for idx in range(4):
+        if result == 1:
+            break
+        if canGo(Y+dy[idx],X+dx[idx]):
+            Maze[Y][X] = 1
+            findWay(Y+dy[idx],X+dx[idx])
+            Maze[Y][X] = 0
+        else:
+            continue
+    return result
 T = int(input())
 for tc in range(1, T+1):
-    N = list(input())
-    print(f'#{tc} {result}')
-    '''
+    N = int(input())
+    Maze = [input() for i in range(N)]
+    Y,X = 0,0
+    for i in range(N):
+        if '2' in Maze[i]:
+            Y,X = i, Maze[i].index('2')
+        Maze[i] = list(map(int,Maze[i]))
+    print('initial Y, X is:',Y,X)
+    Maze[Y][X] = 1
+    result = 0
+    findWay(Y,X)
+    print('#%d %s'%(tc,result))
