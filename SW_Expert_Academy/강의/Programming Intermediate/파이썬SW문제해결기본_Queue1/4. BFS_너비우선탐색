@@ -1,0 +1,19 @@
+BFS(너비우선탐색) 특징
+    - DFS: stack활용
+    - BFS: queue 활용
+        - 시작점의 인접한 정점들을 모두 차례로 방문한 후 방문했던 정점을 시작점으로 하여 다시 인접한 정점들을 차례로 방문하는 방식
+        - 인접한 정점들을 탐색한 후, 차례로 너비 우선 탐색을 진행해야 하므로, 선입선출(FIFO) 형태의 자료구조인 큐가 적절
+    
+    def BFS(G,v): # G:그래프 v: 탐색 시작점
+        visited =[0]*n # n: 정점의 개수
+        queue = [] #큐를 생성
+        queue.append(v) # 시작점 v를 큐에 삽입
+        while queue: # 큐가 비어있지 않은 경우
+            t = queue.pop(0) #큐의 첫번째 원소 반환
+            if not visited[t]: # 방문여부를 점검
+                visited[t] = True # 방문한 것으로 표시
+                visit(t)
+            for i in G[t]: #t와 관련된 모든 선에 대해
+                if not visited[i]: # 방문되지 않은 곳이라면,
+                    queue.append(i) # 큐에 넣는다
+            
