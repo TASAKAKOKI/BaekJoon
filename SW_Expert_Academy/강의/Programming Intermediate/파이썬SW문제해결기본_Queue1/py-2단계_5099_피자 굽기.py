@@ -1,3 +1,5 @@
+#두번째 시도로 성공했으나, 파이썬의 리스트로 구현함. 메모리는 절약했으나, 실행시간이 긺.. 
+# 함수(메소드)로 구현 해보기.
 '''
 N개의 피자를 동시에 구울 수 있는 화덕이 있다. 피자는 치즈가 모두 녹으면 화덕에서 꺼내며, 치즈의 양은 피자마다 다르다.
 1번부터 M번까지 M개의 피자를 순서대로 화덕에 넣을 때, 치즈의 양에 따라 녹는 시간이 다르기 때문에 꺼내지는 순서는 바뀔 수 있다.
@@ -32,7 +34,6 @@ N개의 피자를 동시에 구울 수 있는 화덕이 있다. 피자는 치즈
 '''
 
 # 첫시도 10개 중 4개만 정답
-
 '''
     # 0 using sys.stdin
     import sys
@@ -96,50 +97,66 @@ N개의 피자를 동시에 구울 수 있는 화덕이 있다. 피자는 치즈
         print(f'#{tc} {Q.pop(0)[0]}')
 '''
 
+
+# 두번째 시도! (성공 but 함수로 구현해볼까?)
 # 0 using sys.stdin
 import sys
 sys.stdin = open("./SW_Expert_Academy/강의/Programming Intermediate/파이썬SW문제해결기본_Queue1/input_5099.txt", "r")
-
 T = int(sys.stdin.readline())
 for tc in range(1, T+1):
+    # N은 화덕의 크기, M은 전체 피자의 개수
     N,M = map(int,sys.stdin.readline().strip().split())
-    # L은 화덕에 들어갈 피자들의 대기열.
-    L = list(map(int,sys.stdin.readline().strip().split()))
-    # L에 현재는 각 피자별 치즈의 양만 있으므로, 각 함수에 피자 번호를 함께  [피자번호, 치즈의 양]과 같이 리스트로 저장. --> 더 나은 방법 있을 것.
-    for i in range(M):
-        L[i] = [(i + 1), L[i]] 
-    # Q는 화덕으로써, 앞에서 주어진 크기 N만큼의 자리를 갖는 리스트(화덕) 생성.
-    Q = [0] * N
+    # pizzas는 화덕에 들어갈 피자들의 대기열.
+    pizzas = list(map(int,sys.stdin.readline().strip().split()))
+    # pizzas에 현재는 각 피자별 치즈의 양만 있으므로, 각 함수에 피자 번호를 함께  [피자번호, 치즈의 양]과 같이 리스트(L)에 저장. --> 더 나은 방법 있을 것.
+    L = [[cheese,i+1] for i,cheese in enumerate(pizzas)]
+    print(pizzas)
+    print(L)
 
-    # F는 화덕의 입구로, 화덕 안의 각 요소를 이동시키기 보다, F에 변화를 주면, 각 피자들이 돌아가는 논리적 움직임 표현 가능. 초기값은 0으로 준다
-    F = 0
-    cycle = 0
-    while True:
-        # 만약 대기중인 피자들이 아직 있다면,
-        while L:
-            # 화덕입구(F)에 피자가 없다면 L의 맨 앞 피자를 빼서 넣어준다.
-            if Q[F] == 0:
-                Q[F] = L.pop(0)
-                # 피자를 넣어주면서 치즈의 양이 반으로 줄어든 상태로 만들어 준다.
-                Q[F][1] //= 2
-                # 화덕의 입구를 한칸 이동한다.(피자들이 화덕 안에서 돌아간 것)
-                F = (F+1) % N
-
-            # 화덕입구(F)에 피자가 있다면, 치즈 상태 확인.
-            else:
-                # 치즈가 남아있다면, 반으로 줄이고 화덕 입구 이동
-                if Q[F][1] != 0:
-                    Q[F][1] //= 2
-                    F =(F+1) % N
-                # 만약 치즈가 사라져 있다면, 피자를 빼준다.
-                else:
-                    Q[F] = 0
-        if Q[F][1] != 0:
-            Q[F][1] //= 2
+    # CQ = [0]*N #크기가 N인 화덕을 생성
+    CQ = [L.pop(0) for _ in range(N)] #크기가 N인 화덕에 L에 있는 피자를 앞에서 부터 삽입
+    print(CQ)
+    print(L)
+    while L: #L에 피자가 없을때까지 반복,
+        check = CQ.pop(0)
+        check[0] //= 2
+        if check[0] == 0:
+            CQ.append(L.pop(0))
         else:
-            cycle +=1
-        F =(F+1) % N
-        if cycle == N-1:
-            break
-    print(Q)
-    # print(f'#{tc} {Q.pop(0)[0]}')
+            CQ.append(check)
+        print(CQ)
+        print(L)
+    while len(CQ) != 1:
+        check = CQ.pop(0)
+        check[0] //= 2
+        if check[0] != 0:
+            CQ.append(check)
+    result = CQ.pop()
+    print(f'#{tc} {result[1]}')    
+
+# input버전
+T = int(input())
+for tc in range(1, T+1):
+    # N은 화덕의 크기, M은 전체 피자의 개수
+    N,M = map(int,input().split())
+    # pizzas는 화덕에 들어갈 피자들의 대기열.
+    pizzas = list(map(int,input().split()))
+    # pizzas에 현재는 각 피자별 치즈의 양만 있으므로, 각 함수에 피자 번호를 함께  [피자번호, 치즈의 양]과 같이 리스트(L)에 저장. --> 더 나은 방법 있을 것.
+    L = [[cheese,i+1] for i,cheese in enumerate(pizzas)]
+
+    # CQ = [0]*N #크기가 N인 화덕을 생성
+    CQ = [L.pop(0) for _ in range(N)] #크기가 N인 화덕에 L에 있는 피자를 앞에서 부터 삽입
+    while L: #L에 피자가 없을때까지 반복,
+        check = CQ.pop(0)
+        check[0] //= 2
+        if check[0] == 0:
+            CQ.append(L.pop(0))
+        else:
+            CQ.append(check)
+    while len(CQ) != 1:
+        check = CQ.pop(0)
+        check[0] //= 2
+        if check[0] != 0:
+            CQ.append(check)
+    result = CQ.pop()
+    print(f'#{tc} {result[1]}') 
