@@ -1,5 +1,7 @@
+# https://swexpertacademy.com/main/learn/course/lectureProblemViewer.do?courseId=AVuPDN86AAXw5UW6&subjectId=AWOVIoJqqfYDFAWg&lectureSeq=7&contestProbId=AWTVlVB6bvMDFAVT&kataId=#none
 #두번째 시도로 성공했으나, 파이썬의 리스트로 구현함. 메모리는 절약했으나, 실행시간이 긺.. 
 # 함수(메소드)로 구현 해보기.
+
 '''
 N개의 피자를 동시에 구울 수 있는 화덕이 있다. 피자는 치즈가 모두 녹으면 화덕에서 꺼내며, 치즈의 양은 피자마다 다르다.
 1번부터 M번까지 M개의 피자를 순서대로 화덕에 넣을 때, 치즈의 양에 따라 녹는 시간이 다르기 때문에 꺼내지는 순서는 바뀔 수 있다.
