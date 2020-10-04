@@ -1,4 +1,32 @@
 # https://swexpertacademy.com/main/learn/course/lectureProblemViewer.do
+
+''' 모범답안
+def modify_seq():
+    for _ in range(M):
+        command, *args = input().split()
+            # *args는, 혹시 그 이후에도 입력되어지는 값들이 있다면, list에 그 값들을 담겠다는 소리. 그 예로, 입력된 command가 I이거나 C이면 뒤에 INDEX인자 외에도 NUM인자도 리스트에 담겨 있다는 것을 아래의 코드에서 알 수 있다.
+        if command == 'I':
+            seq.insert(int(args[0]), int(args[1]))
+        elif command == 'D':
+            seq.pop(int(args[0]))
+        elif command == 'C':
+            seq[int(args[0])] = int(args[1])
+    try:
+        return seq[L]
+    except IndexError:
+        return -1
+    #위의 TRY EXCEPT문에서 리스트의 인덱스에 대한 오류가 발생했을 시를 제어해주고 있다.
+for tc in range(1, int(input())+1):
+    # 수열의 길이 N, 추가 횟수 M, 출력할 인덱스 번호 L
+    N, M, L = map(int, input().split())
+    seq = list(map(int, input().split()))
+
+    print(f'#{tc} {modify_seq()}')
+
+이처럼, 간결한 코드를 만드는 연습을 꾸준히 하자.
+############
+'''
+
 '''
 N개의 10억 이하 자연수로 이뤄진 수열이 주어진다. 이 수열은 완성된 것이 아니라 M번의 편집을 거쳐 완성된다고 한다.
 완성된 수열에서 인덱스 L의 데이터를 출력하는 프로그램을 작성하시오.
@@ -59,7 +87,6 @@ for tc in range(1, int(sys.stdin.readline())+1):
     # 각 테스트케이스 별로 완성 된 수열의 L인덱스의 요소를 출력
     print(f'#{tc} {result}')
 
-'''
 # 1 using input
 def completeS():
     global S
@@ -83,4 +110,3 @@ for tc in range(1, int(input())+1):
     if L in range(len(S)):
         result = S[L]
     print(f'#{tc} {result}')
-    '''

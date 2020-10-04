@@ -5,6 +5,38 @@
 좀 더 좋은 풀이법 찾아볼것
 #########################
 
+################
+모범답안
+def crypto(pwd):
+    pivot = 0
+    start_num = pwd[pivot]
+
+    for _ in range(1, K + 1):
+        pivot += M
+
+        if pivot > len(pwd):
+            pivot -= len(pwd)
+
+        if pivot == len(pwd):
+            pwd.append(pwd[-1] + start_num)
+        else:
+            pwd.insert(pivot, pwd[pivot - 1] + pwd[pivot])
+
+    return pwd
+
+
+T = int(input())
+
+for test_case in range(1, T + 1):
+    N, M, K = map(int, input().split())
+    password = list(map(int, input().split()))
+
+    encrypted = list(reversed(crypto(password)))
+
+    print(f'#{test_case}', end=' ')
+    print(*encrypted[:10])
+################
+
 A사는 창립기념일 이벤트로 비밀번호 맞추기 대회를 열어, 최대 10개인 비밀번호를 맞추는 사람에게 기념품을 제공하기로 했다.
 기념품을 받을 수 있도록 다음 조건에 맞는 비밀번호 찾기 프로그램을 작성하시오.
     - 1000이하의 숫자 N개가 주어진다. 이때 시작 숫자가 정해지고, 첫 번째 지정 위치가 된다.
