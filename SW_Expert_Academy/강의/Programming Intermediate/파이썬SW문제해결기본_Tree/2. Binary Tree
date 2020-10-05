@@ -1,0 +1,61 @@
+이진트리(Binary Tree)
+    - 프로그래밍에서 가장 많이 쓰임
+    - 모든 노드들이 2개의 서브트리를 갖는 특별한 형태의 트리
+    - 노드가 자식 노드를 최대한 2개까지만 가질 수 있는 트리
+    - 자식노드는 각각 '왼쪽 자식 노드(Left child node)'와 '오른쪽 자식 노드(Right child node)'로 구분
+    - 레벨 i에서의 노드의 최대 개수 2의 i제곱 개
+    - 높이가 h인 이진 트리가 가질 수 있는 노드의 최소 개수는 (h+1)개, 최대 개수는 (2의 (h+1)제곱 -1)개가 된다.
+
+이진트리의 종류
+    1. 포화 이진 트리(Full binary Tree)
+        - 모든 레벨에 노드가 포화상태로 있는 이진 트리
+            -즉, 최대의 노드 개수인 (2의 (h+1)제곱 -1)개의 노드를 가진 이진 트리
+            - 루트를 1번으로 하여, 2의 (h+1)제곱 -1까지 정해진 위치에 대한 노드 번호를 가짐
+    2. 완전 이진 트리(Complete binary Tree)
+        - 높이가 h이고, 노드 수가 n개 일때,(단, 2^h <= n < 2^(h+1)-1 이다.)
+        Full이진 트리의 노드 번호 1번 부터 n번까지 빈 자리가 없는 이진 트리
+    3. 편향 이진 트리(Skewed binary Tree)
+        - 높이 h에 대한 최소 개수의 노드를 가지면서 한쪽 방향의 자식 노드만을 가진 이진 트리
+            - 왼쪽 편향 이진 트리
+            - 오른쪽 편향 이진 트리
+순회(Traversal)
+    : 트리의 각 노드를 중복되지 않게 전부 방문(Visit)하는 것을 말하는데, 트리는 비 선형 구조이기 때문에, 선형구조에서와 같이 선후 연결관계를 알 수 없음....
+    --> 특별한 방법의 방문이 필요
+    - 3가지의 기본적인 순회방법
+        1. 전위 순회(Preorder traversal)
+            VLR
+            자손노드보다 루트노드를 먼저 방문
+        2. 중위 순회(Inorder traversal)
+            LVR
+            왼쪽자손,루트,오른쪽자손 순으로 방문
+        3. 후위 순회(Postorder traversal)
+            LRV
+            루트노드보다 자손을 먼저 방문
+
+    1. 전위 순회 수행 방법
+        - 현재 노드 n을 방문하여 처리: V
+        - 현재 노드 n의 왼쪽 서브트리로 이동:L
+        - 현재 노드 n의 오른쪽 서브트리로 이동:R
+        - def preorder_traverse(T): #전위순회
+            if T:  # T is not None
+                visit(T) #print(T.item)
+                preorder_traverse(T.left)
+                preorder_traverse(T.right)
+    2. 중위 순회 수행 방법
+        - 현재 노드 n의 왼쪽 서브트리로 이동:L
+        - 현재 노드 n을 방문하여 처리: V
+        - 현재 노드 n의 오른쪽 서브트리로 이동:R
+        - def inorder_traverse(T): #중위순회
+            if T:  # T is not None
+                inorder_traverse(T.left)
+                visit(T) #print(T.item)
+                inorder_traverse(T.right)
+    3. 후위 순회 수행 방법
+        - 현재 노드 n의 왼쪽 서브트리로 이동:L
+        - 현재 노드 n의 오른쪽 서브트리로 이동:R
+        - 현재 노드 n을 방문하여 처리: V
+        - def postorder_traverse(T): #중위순회
+            if T:  # T is not None
+                postorder_traverse(T.left)
+                postorder_traverse(T.right)
+                visit(T) #print(T.item)        
