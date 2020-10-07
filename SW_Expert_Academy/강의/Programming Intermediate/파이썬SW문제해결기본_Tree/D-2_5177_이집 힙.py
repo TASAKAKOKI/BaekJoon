@@ -128,30 +128,34 @@ for tc in range(1, T+1):
 '''
 
 # 2차도전, sys.stdin사용
-    class Tree:
-        def __init__(self):
-            self.TList = [0]
-        def sort(self,n):
-            if n >= 2:
-                if self.TList[n] < self.TList[n//2]:
-                    self.TList[n],self.TList[n//2] = self.TList[n//2],self.TList[n]
-                    self.sort(n//2)
-        def add(self,node):
-            n = len(self.TList)
-            self.TList.append(node)
-            self.sort(n)
-        def Sum(self,curSum):
-            n = len(self.TList)
-            while n > 1:
-                n //= 2
-                curSum += self.TList[n]
-            return curSum
-    for tc in range(1, int(sys.stdin.readline())+1):
-        # N: 루트로 지정할 노드의 개수
-        N = int(sys.stdin.readline())
-        # T: 클라스 Tree를 생성
-        T = Tree()
-        for i in list(map(int,sys.stdin.readline().strip().split())):
-            T.add(i)
-        print('#%d'%tc,T.Sum(0))
-
+class Tree:
+    def __init__(self):
+        self.TList = [0]
+    def sort(self,n):
+        if n >= 2:
+            if self.TList[n] < self.TList[n//2]:
+                self.TList[n],self.TList[n//2] = self.TList[n//2],self.TList[n]
+                self.sort(n//2)
+    def add(self,node):
+        n = len(self.TList)
+        self.TList.append(node)
+        self.sort(n)
+    def Sum(self,n):
+        if n == 1:
+            return self.TList[n]
+        else:
+            return self.TList[n] + self.Sum(n//2)
+    def totalSum(self):
+        n = len(self.TList) - 1
+        if n > 1:
+            return self.Sum(n//2)
+        else:
+            return 0
+for tc in range(1, int(sys.stdin.readline())+1):
+    # N: 루트로 지정할 노드의 개수
+    N = int(sys.stdin.readline())
+    # T: 클라스 Tree를 생성
+    T = Tree()
+    for i in list(map(int,sys.stdin.readline().strip().split())):
+        T.add(i)
+    print('#%d'%tc,T.totalSum())
