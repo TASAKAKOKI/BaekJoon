@@ -65,6 +65,7 @@ for test_case in range(1, 1 + T):
 '''
 import sys
 sys.stdin = open("./SW_Expert_Academy/강의/Programming Intermediate/파이썬SW문제해결기본_Tree/이진 힙.txt", "r")
+'''
 def makeBMinHeap(node):
     if node < N:
         temp = data[node]
@@ -98,7 +99,7 @@ def calculSum(n,Sum):
         n //= 2
         Sum += Tree[n]
     return Sum
-# 0 using sys.stdin
+# 0 실패__ using sys.stdin 
 for tc in range(1, int(sys.stdin.readline())+1):
     # N: 주어질 간선의 개수 , N: 루트로 지정할 노드
     N = int(sys.stdin.readline())
@@ -109,26 +110,6 @@ for tc in range(1, int(sys.stdin.readline())+1):
     makeBMinHeap(0)
     result = calculSum(N,0)
     print('#%d'%tc,result)
-    '''
-    # N에대하여, 1번부터 N+1번까지의 노드를 갖는 트리를 생성. 이때, 각 노드의 값은 자식노드를 담은 리스트이지만, 초기화시에는 빈 리스트를 값으로 준다.
-    Tree = {str(i):[] for i in range(1,E+2)}
-    # Edge에 주어진 간선정보들을 담는다.
-    Edges = sys.stdin.readline().strip().split()
-    # 주어진 간선정보를 토대로, 부모노드를 키로, 자식노드들의 집합리스트를 값으로 갖는 딕셔너리 Tree 생성
-    for i in range(len(Edges)):
-        if i%2==0:
-            Pnode = Edges[i]
-        else:
-            Cnode = Edges[i]
-            Tree[Pnode].append(Cnode)
-    count = 1
-    # 주어진 노드의 자식 노드를 카운팅 하는 함수 호출
-    countNodes(str(N))
-    # 각 테스트케이스 별로 완성 된 수열의 L인덱스의 요소를 출력
-    print('#%d'%tc,count)
-    '''
-
-'''
 # 1 using input
 T = int(input())
 for tc in range(1, T+1):
@@ -145,3 +126,32 @@ for tc in range(1, T+1):
     countNodes(str(N))
     print('#%d'%tc,count)
 '''
+
+# 2차도전, sys.stdin사용
+    class Tree:
+        def __init__(self):
+            self.TList = [0]
+        def sort(self,n):
+            if n >= 2:
+                if self.TList[n] < self.TList[n//2]:
+                    self.TList[n],self.TList[n//2] = self.TList[n//2],self.TList[n]
+                    self.sort(n//2)
+        def add(self,node):
+            n = len(self.TList)
+            self.TList.append(node)
+            self.sort(n)
+        def Sum(self,curSum):
+            n = len(self.TList)
+            while n > 1:
+                n //= 2
+                curSum += self.TList[n]
+            return curSum
+    for tc in range(1, int(sys.stdin.readline())+1):
+        # N: 루트로 지정할 노드의 개수
+        N = int(sys.stdin.readline())
+        # T: 클라스 Tree를 생성
+        T = Tree()
+        for i in list(map(int,sys.stdin.readline().strip().split())):
+            T.add(i)
+        print('#%d'%tc,T.Sum(0))
+
