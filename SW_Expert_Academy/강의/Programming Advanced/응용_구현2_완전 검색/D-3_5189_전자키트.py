@@ -25,7 +25,31 @@ e[1][3]+e[3][2]+e[2][1] = 34+7+48 = 89
 '''
 import  sys
 sys.stdin = open("./SW_Expert_Academy/강의/Programming Advanced/응용_구현2_완전 검색/5189_전자키트.txt", "r")
+# 이 문제는 우선 시작점(0)을 제외한 1부터 N-1번까지의 요소들을 순열로 만들 수 있는 순서들을 만든 뒤, 각 순열에 대해서 합을 구해보자.  
+def DFS(s):
+    global tempSum,minSum
+    if tempSum > minSum:
+        return
+    else:
+        visited[s] = True
+        if False not in visited:            #모든 곳을 방문했다면,
+            tempSum += Field[s][0]
+            if tempSum < minSum:            #현재까지의 합이 minSum보다 작다면, minSum값 갱신.
+                minSum = tempSum
+            tempSum -= Field[s][0]
+        else:                               #방문하지 않은 곳이 아직 있다면,
+            for i in range(1,N):
+                if not visited[i]:
+                    tempSum += Field[s][i]
+                    DFS(i)
+                    tempSum -= Field[s][i]
+        visited[s] = False
 
 for tc in range(1,int(sys.stdin.readline())+1):
-    # N,X = sys.stdin.readline().strip().split()
-    # print('#%d'%tc,''.join(b for b in B))
+    N = int(sys.stdin.readline())
+    Field = [list(map(int,sys.stdin.readline().strip().split())) for _ in range(N)]
+    tempSum = 0
+    minSum = 100*N
+    visited = [False]*N
+    DFS(0)
+    print('#%d'%tc,minSum)
