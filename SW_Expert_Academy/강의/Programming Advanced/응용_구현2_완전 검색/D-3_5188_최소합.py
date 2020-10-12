@@ -17,6 +17,31 @@
 '''
 import  sys
 sys.stdin = open("./SW_Expert_Academy/강의/Programming Advanced/응용_구현2_완전 검색/5188_최소합.txt", "r")
+dy,dx = [1,0],[0,1]
+def  minLength(Y,X,Sum):
+    global minSum
+    if Sum > minSum:
+        return
+    Sum +=  Field[Y][X]
+    for i in range(2):
+        tempY,tempX = Y+dy[i],X+dx[i]
+        if tempY in range(N) and tempX in range(N):
+            minLength(tempY,tempX,Sum)
+    if Y == N-1 and X == N-1:
+        if Sum < minSum:
+            minSum = Sum
+    return minSum 
+
 for tc in range(1,int(sys.stdin.readline())+1):
-    # N = float(sys.stdin.readline())
-    # print('#%d'%tc,result)
+    N = int(sys.stdin.readline())
+    Field = [list(map(int,sys.stdin.readline().strip().split())) for _ in range(N)]
+    minSum = 10*N*N
+    minSum = minLength(0,0,0)
+    print('#%d'%tc,minSum)]
+
+for tc in range(1,int(input())+1):
+    N = int(input())
+    Field = [list(map(int,input().split())) for _ in range(N)]
+    minSum = 10*(2*N-1)
+    minSum = minLength(0,0,0)
+    print('#%d'%tc,minSum)
